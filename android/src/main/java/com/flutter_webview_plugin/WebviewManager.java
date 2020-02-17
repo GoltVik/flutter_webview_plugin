@@ -33,6 +33,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import android.database.Cursor;
+import android.provider.OpenableColumns;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -423,6 +428,12 @@ class WebviewManager {
         }
     }
 
+    private void setCookies(String url, ArrayList<String> cookies) {
+        for (String cookie : cookies) {
+            CookieManager.getInstance().setCookie(url, cookie);
+        }
+    }
+
     private void clearCache() {
         webView.clearCache(true);
         webView.clearFormData();
@@ -440,6 +451,7 @@ class WebviewManager {
             boolean clearCache,
             boolean hidden,
             boolean clearCookies,
+            ArrayList<String> cookies,
             boolean mediaPlaybackRequiresUserGesture,
             String userAgent,
             String url,
@@ -506,6 +518,10 @@ class WebviewManager {
 
         if (clearCookies) {
             clearCookies();
+        }
+
+        if (cookies != null && !cookies.isEmpty()) {
+            setCookies(url, cookies);
         }
 
         if (userAgent != null) {

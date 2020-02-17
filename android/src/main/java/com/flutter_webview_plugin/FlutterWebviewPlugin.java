@@ -114,6 +114,7 @@ public class FlutterWebviewPlugin implements MethodCallHandler, PluginRegistry.A
         boolean withJavascript = call.argument("withJavascript");
         boolean clearCache = call.argument("clearCache");
         boolean clearCookies = call.argument("clearCookies");
+        ArrayList<String> cookies = call.argument("cookies");
         boolean mediaPlaybackRequiresUserGesture = call.argument("mediaPlaybackRequiresUserGesture");
         boolean withZoom = call.argument("withZoom");
         boolean displayZoomControls = call.argument("displayZoomControls");
@@ -147,6 +148,7 @@ public class FlutterWebviewPlugin implements MethodCallHandler, PluginRegistry.A
                 clearCache,
                 hidden,
                 clearCookies,
+                cookies,
                 mediaPlaybackRequiresUserGesture,
                 userAgent,
                 url,
