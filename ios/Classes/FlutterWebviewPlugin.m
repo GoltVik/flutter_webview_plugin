@@ -283,6 +283,7 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
         self.webview.navigationDelegate = nil;
         [self.webview removeObserver:self forKeyPath:@"estimatedProgress"];
         self.webview = nil;
+        currentUrl != nil;
 
         // manually trigger onDestroy
         [channel invokeMethod:@"onDestroy" arguments:nil];
