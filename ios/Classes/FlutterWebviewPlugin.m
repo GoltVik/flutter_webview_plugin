@@ -99,7 +99,7 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
     _invalidUrlRegex = call.arguments[@"invalidUrlRegex"];
     _ignoreSSLErrors = call.arguments[@"ignoreSSLErrors"];
     _javaScriptChannelNames = [[NSMutableSet alloc] init];
-    currentUrl != nil;
+    currentUrl = nil;
     
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
     if ([call.arguments[@"javascriptChannelNames"] isKindOfClass:[NSArray class]]) {
@@ -283,8 +283,7 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
         self.webview.navigationDelegate = nil;
         [self.webview removeObserver:self forKeyPath:@"estimatedProgress"];
         self.webview = nil;
-        currentUrl != nil;
-
+        currentUrl = nil;
         // manually trigger onDestroy
         [channel invokeMethod:@"onDestroy" arguments:nil];
     }
@@ -292,8 +291,8 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 
 - (void)reloadUrl:(FlutterMethodCall*)call {
     if (self.webview != nil) {
-		NSString *url = call.arguments[@"url"];
-		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        NSString *url = call.arguments[@"url"];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
         NSDictionary *headers = call.arguments[@"headers"];
         
         if (headers != nil) {
